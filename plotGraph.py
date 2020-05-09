@@ -35,22 +35,27 @@ def setFunction(func):
 	plt.legend()
 	plt.draw()
 
-def main():
+def _startPlot():
+	plt.ioff()
+	
+	setFunction(lambda x: x)
+	plt.show()
+
+def _interactiveShell():
+	shell = code.InteractiveConsole({**globals(), **locals()})
+	shell.interact()
+
+_plotStarted = False
+def start():
 	""" Start the plotting functions.
 	Raises exception if called more than once.
 	"""
-	def startPlot():
-		plt.ioff()
-		
-		setFunction(lambda x: x)
-		plt.show()
+	global _plotStarted
 	
-	def interactiveShell():
-		shell = code.InteractiveConsole({**globals(), **locals()})
-		shell.interact()
+	if _plotStarted:
+		raise Exception('start() called more than once.')
 	
-	threading.Thread(target=interactiveShell).start()
-	startPlot()
-
-if __name__=="__main__":
-	main()
+	_plotStarted = True
+	
+	threading.Thread(target=_interactiveShell).start()
+	_startPlot()
