@@ -5,7 +5,8 @@ import threading, time
 import code
 
 def setFunction(func):
-	""" Set the plotted function.
+	"""
+	Set the plotted function.
 	
 	Parameters:
 		func - The function f to be plotted.
@@ -35,7 +36,7 @@ def setFunction(func):
 	plt.legend()
 	plt.draw()
 
-def _startPlot():
+def _initPlot():
 	plt.ioff()
 	
 	setFunction(lambda x: x)
@@ -46,9 +47,12 @@ def _interactiveShell():
 	shell.interact()
 
 _plotStarted = False
-def start():
-	""" Start the plotting functions.
-	Raises exception if called more than once.
+def startPlot():
+	"""
+	Start the plotting functions.
+	
+	Exceptions:
+		Raises Exception if called more than once.
 	"""
 	global _plotStarted
 	
@@ -58,4 +62,4 @@ def start():
 	_plotStarted = True
 	
 	threading.Thread(target=_interactiveShell).start()
-	_startPlot()
+	_initPlot()

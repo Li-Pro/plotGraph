@@ -1,3 +1,3 @@
 import plotGraph
 
-plotGraph.start()
+plotGraph.startPlot()
