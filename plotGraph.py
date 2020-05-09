@@ -1,20 +1,31 @@
+import code
+import numbers
+import threading
+import time
+
 import matplotlib.pyplot as plt
 import numpy as np
 
-import threading, time
-import code
+def _checkIntegral(x):
+	return isinstance(x, numbers.Number)
 
-def setFunction(func):
+def setFunction(func, precision=100, domain=(-100, 100)):
 	"""
 	Set the plotted function.
 	
 	Parameters:
 		func - The function f to be plotted.
+		precision - The precision of graph (the number of points lie between neighboring integer).
 	"""
+	if not (type(precision) == int and precision > 0):
+		raise Exception('precision {} is not a positive number.'.format(precision))
+	
+	if not (type(domain) == tuple and len(domain)==2 and all(_checkIntegral(x) for x in domain)) :
+		raise Exception('domain {} is not valid.'.format(domain))
+	
 	devx, devy = [], []
 	
-	for i_int in range(-100, 100):
-		precision = 100
+	for i_int in range(*domain):
 		for i_point in range(precision):
 			x = i_int + (i_point / precision)
 			try:
