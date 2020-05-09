@@ -1,0 +1,5 @@
+# Build files
+**/__pycache__
+
+# Local files
+venv
