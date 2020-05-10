@@ -44,14 +44,16 @@ class _FRange(collections.Sequence):
 def _checkIntegral(x):
 	return isinstance(x, numbers.Number)
 
-def setFunction(func, precision=.01, domain=(-100, 100)):
+def setFunction(func, domain=(-100, 100), precision=.01):
 	"""
 	Set the plotted function.
 	
 	Parameters:
 		func - The function f to be plotted.
-		precision - The precision of graph (the step between neighboring sampled point).
-		domain - The domain of the function as tuple (min_x, max_x).
+		
+		Optional Parameters:
+			domain - The domain of the function as tuple (min_x, max_x).
+			precision - The precision of graph (the length between neighboring sampled point).
 	"""
 	isNumber = _checkIntegral
 	frange = _FRange
@@ -108,7 +110,7 @@ def startPlot():
 	global _plotStarted
 	
 	if _plotStarted:
-		raise Exception('start() called more than once.')
+		raise Exception('startPlot() called more than once.')
 	
 	_plotStarted = True
 	
