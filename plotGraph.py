@@ -1,4 +1,5 @@
 import code
+import collections
 import math
 import numbers
 import threading
@@ -9,17 +10,10 @@ from warnings import warn as _warn
 import matplotlib.pyplot as plt
 import numpy as np
 
-# def _fround(x, eps=1e-9):
-	# rep = x
-	# if int(x) != int(x+eps):
-		# rep = x+eps
+class _FRange(collections.Sequence):
+	# Mind that some methods have not been overriden yet, and the 
+	# complexity of running them might be huge.
 	
-	# elif int(x) != int(x-eps):
-		# rep = x-eps
-	
-	# return rep
-
-class _FRange:
 	__eps = 1e-9
 	def __init__(self, src, dst, step=1, closed=False):
 		self.__src = src
@@ -68,19 +62,14 @@ def setFunction(func, precision=.01, domain=(-100, 100)):
 	elif precision <= 1e-9:
 		_warn('Precision less than 1e-9 migth have precision error.')
 	
-	# precision = 100
 	if not (type(domain) == tuple and len(domain)==2 and all(isNumber(x) for x in domain)) :
 		raise Exception('domain {} is not valid.'.format(domain))
 	
 	devx, devy = [], []
 	
-	# for i_int in range(*domain):
-		# for i_point in range(precision):
-			# x = i_int + (i_point / precision)
 	for x in frange(*domain, precision):
 		try:
 			xval, yval = x, func(x)
-			# print('#', xval, yval)
 		
 		except:
 			pass
