@@ -15,17 +15,28 @@ In interactive console:
 >>> setFunction(lambda x: x**3) # a one-liner version
 ```
 
-### The `plotGraph.py`
-Contains the essential plotting functions.
+### Advanced Usage
+The `plotGraph.py` contains the essential plotting functions.
 
-- startPlot  
-Open the plot window, startup the interacting thread.
-
-- setFunction  
-Update the function to be plotted.
-
-Example
+#### startPlot  
+Open the plot window, start the interacting thread.
 ```python3
 import plotGraph
 plotGraph.startPlot()
 ```
+
+#### setFunction(func, domain, precision)  
+Update the function to be plotted.  
+```python3
+(InteractiveConsole)
+>>> setFunction(lambda x: x**3) # f(x) = x^3
+>>> 
+>>> import math
+>>> setFunction(lambda x: math.sqrt(x), domain=(0, 100)) # f(x) = x^(1/2) with domain [0, 100)
+>>> setFunction(lambda x: math.sin(x), precision=1.0) # f(x) = sin(x), sample with step 1.0
+```
+
+For more details, refer to `plotGraph.py` or `help(plotGraph)`.
+
+## License
+This project is licensed under the terms of MIT License.
