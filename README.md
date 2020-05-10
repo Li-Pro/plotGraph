@@ -12,7 +12,7 @@ In interactive console:
 ...   return x**2
 ...
 >>> setFunction(f) # set the function to f(x) = x^2
->>> setFunction(lambda x: x**3) # a one-liner version
+>>> setFunction(lambda x: x**2) # a one-liner version
 ```
 
 ### Advanced Usage
@@ -33,7 +33,7 @@ Update the function to be plotted.
 >>> 
 >>> import math
 >>> setFunction(lambda x: math.sqrt(x), domain=(0, 100)) # f(x) = x^(1/2) with domain [0, 100)
->>> setFunction(lambda x: math.sin(x), precision=1.0) # f(x) = sin(x), sample with step 1.0
+>>> setFunction(lambda x: math.sin(x), precision=1.0) # f(x) = sin(x), sampled with step 1.0
 ```
 
 For more details, refer to `plotGraph.py` or `help(plotGraph)`.
