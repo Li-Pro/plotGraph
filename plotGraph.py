@@ -15,7 +15,7 @@ class _FRange(collections.Sequence):
 	# complexity of running them might be huge.
 	
 	__eps = 1e-9
-	def __init__(self, src, dst, step=1, closed=True):
+	def __init__(self, src, dst, step=1, closed=False):
 		self.__src = src
 		self.__dst = dst
 		self.__step = step
@@ -38,9 +38,8 @@ class _FRange(collections.Sequence):
 		eps = _FRange.__eps
 		
 		dist = (dst - src) / step
-		remain = math.floor(dist + eps) + 1
-		# print('#', dist, remain)
-		if not self.__isClosed and abs((src + remain*step) - dst) < eps:
+		remain = math.floor(dist + eps)
+		if not (not self.__isClosed and abs((src + remain*step) - dst) < eps):
 			remain += 1
 		
 		return max(remain, 0)
