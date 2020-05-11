@@ -36,6 +36,16 @@ Update the function to be plotted.
 >>> setFunction(lambda x: math.sin(x), precision=1.0) # f(x) = sin(x), sampled with step 1.0
 ```
 
+#### viewRect(xlim, ylim)
+Set the viewing rectangle.
+```python3
+(InteractiveConsole) 
+>>> import math
+>>> setFunction(lambda x: math.sin(x)) # f(x) = sin(x)
+>>> viewRect(xlim=(-math.pi, math.pi), ylim=(-1.0, 1.0)) # set the XY limits
+{'xlim': (-3.141592653589793, 3.141592653589793), 'ylim': (-1.0, 1.0)}
+```
+
 For more details, refer to `plotGraph.py` or `help(plotGraph)`.
 
 ## License
