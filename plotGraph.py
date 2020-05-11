@@ -15,7 +15,7 @@ class _FRange(collections.Sequence):
 	# complexity of running them might be huge.
 	
 	__eps = 1e-9
-	def __init__(self, src, dst, step=1, closed=False):
+	def __init__(self, src, dst, step=1, closed=True):
 		self.__src = src
 		self.__dst = dst
 		self.__step = step
@@ -34,8 +34,15 @@ class _FRange(collections.Sequence):
 		return rep
 	
 	def __len__(self):
-		dist = (self.__dst - self.__src) // self.__step
-		remain = math.floor(dist + self.__eps) + int(self.__isClosed)
+		src, dst, step = self.__src, self.__dst, self.__step
+		eps = _FRange.__eps
+		
+		dist = (dst - src) / step
+		remain = math.floor(dist + eps) + 1
+		# print('#', dist, remain)
+		if not self.__isClosed and abs((src + remain*step) - dst) < eps:
+			remain += 1
+		
 		return max(remain, 0)
 	
 	def __getitem__(self, k):
@@ -91,6 +98,7 @@ def setFunction(func, domain=(-100, 100), precision=.01):
 
 def _initPlot():
 	plt.ioff()
+	plt.gcf().canvas.set_window_title('plotGraph')
 	
 	setFunction(lambda x: x)
 	plt.show()
