@@ -47,6 +47,32 @@ class _FRange(collections.Sequence):
 	def __getitem__(self, k):
 		return self.__src + __step*k
 
+def viewRect(xlim=None, ylim=None):
+	"""
+	Get or set the limits of the XY axes.
+	
+	Optional Parameters:
+		xlim - the new X limits.
+		ylim - the new Y limits.
+	
+	Returns:
+		xlim, ylim - the new XY axes.
+	
+	Remarks:
+		Both parameters are optional, so call this function with
+		no parameter to retrieve the axes.
+	"""
+	
+	if xlim:
+		plt.xlim(xlim)
+	
+	if ylim:
+		plt.ylim(ylim)
+	
+	plt.draw()
+	
+	return dict(xlim=plt.xlim(), ylim=plt.ylim())
+
 def _checkIntegral(x):
 	return isinstance(x, numbers.Number)
 
@@ -58,8 +84,9 @@ def setFunction(func, domain=(-100, 100), precision=.01):
 		func - The function f to be plotted.
 		
 		Optional Parameters:
-			domain - The domain of the function as tuple (min_x, max_x).
-			precision - The precision of graph (the length between neighboring sampled point).
+			domain    - The domain of the function as tuple (min_x, max_x).
+			precision - The precision of graph (the length between
+			            neighboring sampled point).
 	"""
 	isNumber = _checkIntegral
 	frange = _FRange
