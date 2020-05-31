@@ -129,14 +129,25 @@ def _initPlot():
 	setFunction(lambda x: x)
 	plt.show()
 
-def _interactiveShell():
-	shell = code.InteractiveConsole({**globals(), **locals()})
+def _latterJoinDict(*args):
+	sumdict = {}
+	for dct in args:
+		for key in dct:
+			sumdict[key] = dct[key]
+	
+	return sumdict
+
+def _interactiveShell(extNames={}):
+	shell = code.InteractiveConsole(_latterJoinDict(globals(), locals(), extNames))
 	shell.interact()
 
 _plotStarted = False
-def startPlot():
+def startPlot(extNames={}):
 	"""
 	Start the plotting functions.
+	
+	Optional Parameters:
+		extNames: Extra variables used in interaction.
 	
 	Exceptions:
 		Raises Exception if called more than once.
@@ -148,5 +159,5 @@ def startPlot():
 	
 	_plotStarted = True
 	
-	threading.Thread(target=_interactiveShell).start()
+	threading.Thread(target=_interactiveShell, args=(extNames,)).start()
 	_initPlot()
